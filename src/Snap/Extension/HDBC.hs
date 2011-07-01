@@ -12,6 +12,7 @@ module Snap.Extension.HDBC
   ( MonadHDBC ( .. )
   , HDBCState ( HDBCState )
   , HasHDBCState ( .. )
+  , InitInfo (..)
   ) where
 
 import Control.Monad.Trans.Reader ( ReaderT )
@@ -34,6 +35,11 @@ class (MonadSnap m) => MonadHDBC m where
 newtype HDBCState = HDBCState
   { _connWrapper :: ConnWrapper
   }
+
+data InitInfo = InitInfo
+    { connString :: String
+    , describeTables :: [String]
+    }
 
 -- | An application that 'HasHDBCState' is a 'MonadHDBC' whose state
 -- supports a connection supplied by HDBC.
